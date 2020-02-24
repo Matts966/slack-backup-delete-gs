@@ -53,7 +53,11 @@ SlackBackupAndDeleteApp.backupAndDelete = function(channelId, deleteFiles){
         'token': SlackBackupAndDeleteApp.SLACK_ACCESS_TOKEN,
         'file': file.id
       }
-      var sharedUrl = SlackBackupAndDeleteApp.execute('files.sharedPublicURL', params).file.permalink_public;
+      var f = SlackBackupAndDeleteApp.execute('files.sharedPublicURL', params).file;
+      if (!f) {
+        return
+      }
+      var sharedUrl = f.permalink_public;
     }
     
     // スクレイピングで素のデータURLを取得
